@@ -1,0 +1,122 @@
+import tkinter
+import numpy as np
+from tkinter import *
+from PIL import Image,ImageTk
+from tkinter.filedialog import askopenfilename
+import time
+root = Tk()
+root.geometry('450x300')
+
+class ImageObject:
+    def __init__(self,path= ""):
+        self.path = path
+        try:
+            self.data = np.array(Image.open(path))
+        except:
+            self.data = None
+    def __add__(self,other):
+        image = ImageObject()
+        try:
+            image.data = np.mod(self.data + other.data,255)
+        except:
+            image.data = self.data
+        return image
+    def __sub__(self,other):
+        image = ImageObject()
+        try:
+            image.data = np.mod(self.data - other.data,255)
+        except:
+            image.data = self.data
+        return image
+    def __mul__(self,factor):
+        image = ImageObject()
+        try:
+            image.data = np.mod(self.data * factor,255)
+        except:
+            image.data = self.data
+        return image
+    def __truediv__(self,factor):
+        image = ImageObject()
+        try:
+            image.data = np.mod(self.data // factor,255)
+        except:
+            image.data = self.data
+        return image
+    def saveImage(self,path):
+        try:
+            im = Image.fromarray(self.data)
+            im.save(path)
+            return True
+        except:
+            return False
+    def add(self):
+        (a + b).saveImage("result_add.png")
+        img_open = Image.open("result_add.png")
+        img = ImageTk.PhotoImage(img_open)
+        image_label3.config(image=img)
+        image_label3.image = img 
+    def sub(self):
+        (a - b).saveImage("result_sub.png")
+        img_open = Image.open("result_sub.png")
+        img = ImageTk.PhotoImage(img_open)
+        image_label4.config(image=img)
+        image_label4.image = img 
+    def mul(self):
+        (a * 5).saveImage("result_mul.png")
+        img_open = Image.open("result_mul.png")
+        img = ImageTk.PhotoImage(img_open)
+        image_label5.config(image=img)
+        image_label5.image = img
+    def div(self):
+        (a / 5).saveImage("result_div.png")
+        img_open = Image.open("result_div.png")
+        img = ImageTk.PhotoImage(img_open)
+        image_label6.config(image=img)
+        image_label6.image = img
+        
+class Choose:
+    def picture1(self):                       #查询图片位置并在窗口显示
+        global a
+        path_1 = askopenfilename()
+        path1.set(path_1)
+        img_open =Image.open(file_entry1.get())
+        a = ImageObject(file_entry1.get())
+        img = ImageTk.PhotoImage(img_open)
+        image_label1.config(image=img)      #config用来配置tkinter中控件和字体的样式
+        image_label1.image = img            # keep a reference
+    def picture2(self):
+        global b
+        path_2 = askopenfilename()
+        path2.set(path_2)
+        img_open = Image.open(file_entry2.get())
+        b = ImageObject(file_entry2.get())
+        img = ImageTk.PhotoImage(img_open)
+        image_label2.config(image=img)      #config用来配置tkinter中控件和字体的样式
+        image_label2.image = img            # keep a reference
+
+    
+path1 = StringVar()
+file_entry1 = Entry(root, state='readonly', text=path1)
+path2 = StringVar()
+file_entry2 = Entry(root, state='readonly', text=path2)
+
+Button(root, text='选择图片a', command=lambda:Choose().picture1()).grid(row=0,column=0,sticky=N)
+Button(root, text='选择图片b', command=lambda:Choose().picture2()).grid(row=0,column=1,sticky=N)
+Button(root, text='图片相加', command=lambda:ImageObject().add()).grid(row=2,column=0,sticky=E)
+Button(root, text='图片相减', command=lambda:ImageObject().sub()).grid(row=2,column=1,sticky=E)
+Button(root, text='图片乘法', command=lambda:ImageObject().mul()).grid(row=2,column=2,sticky=E)
+Button(root, text='图片除法', command=lambda:ImageObject().div()).grid(row=2,column=3,sticky=E)
+#file_entry.pack() 
+image_label1 = Label(root)
+image_label1.grid(row=1,column=0,sticky=N)
+image_label2 = Label(root)
+image_label2.grid(row=1,column=1,sticky=N)
+image_label3 = Label(root)
+image_label3.grid(row=3,column=0,sticky=W,padx=1)
+image_label4 = Label(root)
+image_label4.grid(row=3,column=1,sticky=W)
+image_label5 = Label(root)
+image_label5.grid(row=3,column=2,sticky=W)
+image_label6 = Label(root)
+image_label6.grid(row=3,column=3,sticky=W)
+root.mainloop()

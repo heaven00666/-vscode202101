@@ -1,0 +1,128 @@
+# '''n=0;
+# for g in range(1,20):
+#     for m in range(1,33):
+#         for x in range(3,98,3):
+#             if g+m+x==100 and g*5+m*3+x//3==100 and x%2==0:
+#                 #print("公鸡:",g,"母鸡:",m,"小鸡:",x)
+#                 n+=1;
+# print(n)'''
+
+
+# def hannoi(num,src,dst,temp=None):
+#     if num < 1:
+#         return
+#     global times
+#     hannoi(num-1,src,temp,dst)
+#     print('The {0} Times move:{1}==>{2}'.format(times,src,dst))
+#     towers[dst].append(towers[src].pop())
+#     for tower in 'ABC':
+#         print(tower,':',towers[tower])
+#     times += 1
+#     hannoi(num-1,temp,dst,src)
+
+# times = 1
+# n = 3
+# towers = {'A':list(range(n,0,-1)),
+#           'B':[],
+#           'C':[]
+#           }
+# hannoi(n,'A','C','B')
+
+# from random import randint
+
+# def bubblesort(lst):
+#     length = len(lst)
+#     for i in range(0, length):
+#         for j in range(0, length-i-1):
+#             if lst[j] > lst[j+1]:
+#                 lst[j], lst[j+1] = lst[j+1], lst[j]
+
+
+# lst = [randint(1, 100) for i in range(20)]
+# print('Before sorted:\n', lst)
+# bubblesort(lst)
+# print('After sorted:\n', lst)
+
+# maxNumber = int(input('请输入一个大于2的自然数：'))
+# numbers = set(range(2,maxNumber))
+# m = int(maxNumber**0.5)+1
+# primesLessThanM = [p for p in range(2,m)
+#                    if 0 not in [p%d for d in range(2, int(p**0.5)+1)]]
+# for p in primesLessThanM:
+#     for i in range(2,maxNumber//p+1):
+#         numbers.discard(i*p)
+
+# print(numbers)
+
+# def binarySearch(lst, value):
+#     start = 0
+#     end = len(lst)-1
+#     while start <= end:              #计算中间位置
+#         middle = (start + end) // 2  #查找成功，返回元素对应的位置
+#         if value == lst[middle]:
+#             return middle            #在后面一半元素中继续查找
+#         elif value > lst[middle]:
+#             start = middle + 1       #在前面一半元素中继续查找
+#         elif value < lst[middle]:
+#             end = middle - 1         #查找不成功，返回False
+#     return False
+
+# from random import randint
+
+# lst = [randint(1,50) for i in range(20)]
+# lst.sort()
+# print(lst)
+# result = binarySearch(lst, 30)
+# if result!=False:
+#     print('Success, its position is:',result)
+# else:
+#     print('Fail. Not exist.')
+
+class Student():
+    name = "intiaIName"
+    i=0
+    j=0
+    def __init__(self,name,age):
+        #构造函数
+        #_init_为构造函数，在进行类的实例化，会被自动调用
+        self.name = name
+        self.j=self.j+1
+        Student.i = Student.i+1
+    def do_homework(self):
+        print("homework for",self.name)
+
+student1 = Student("redhat",38)
+print("object1 is initialized i Student is %s"%Student.i)
+print("object1 is initialized i student1 is %s"%student1.i)
+print("object1 is initialized j Student is %s"%Student.j)
+print("object1 is initialized j student1 is %s"%student1.j)
+student1.do_homework()
+Student.do_homework(student1)
+
+student1.name = "redhat1"
+print("Student1=%s"%(student1.name))
+print(student1.name)
+print(Student.name)
+student2 = Student('redhat2',38)
+print("object2 is initialized i Student is %s"%Student.i)
+print("object2 is initialized i student1 is %s"%student2.i)
+print("object2 is initialized j Student is %s"%Student.j)
+print("object2 is initialized j student1 is %s"%student2.j)
+print("Student2=%s"%(student2.name))
+print(student2.name)
+print(Student.name)
+student2.do_homework()
+Student.do_homework(student2)
+
+student3 = Student('redhat3',38)
+print("object3 is initialized i Student is %s"%Student.i)
+print("object3 is initialized i student3 is %s"%student3.i)
+print("object3 is initialized j Student is %s"%Student.j)
+print("object3 is initialized j student3 is %s"%student3.j)
+print("Student3=%s"%(student3.name))
+print(student3.name)
+print(Student.name)
+student3.do_homework()
+Student.do_homework(student3)
+
+
